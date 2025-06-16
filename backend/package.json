@@ -4,7 +4,11 @@
   "description": "CRM",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+     "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pull": "git pull",
+    "push": "git add . && git commit -m \"update\" && git push"
   },
   "keywords": [
     "CRM",
