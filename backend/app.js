@@ -16,7 +16,13 @@ const adminProjectsRoutes = require('./routes/admin/projectsRoutes');
 const adminReportsRoutes = require('./routes/admin/reportsRoutes');
 const adminSeoRoutes = require('./routes/admin/seoRoutes');
 const adminProductsRoutes = require('./routes/admin/productsRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const wishlistRoutes = require('./routes/wishlistRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 const cors = require('cors');
+const passport = require('passport');
+const authGoogleRoutes = require('./routes/authGoogleRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -24,6 +30,8 @@ const app = express();
 app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(session);
+app.use(passport.initialize());
+app.use(passport.session());
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
@@ -44,6 +52,11 @@ app.use('/api/admin/projects', adminProjectsRoutes);
 app.use('/api/admin/reports', adminReportsRoutes);
 app.use('/api/admin/seo', adminSeoRoutes);
 app.use('/api/admin/products', adminProductsRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/auth', authGoogleRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 
