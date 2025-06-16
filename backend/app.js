@@ -15,6 +15,7 @@ const adminEmailsRoutes = require('./routes/admin/emailsRoutes');
 const adminProjectsRoutes = require('./routes/admin/projectsRoutes');
 const adminReportsRoutes = require('./routes/admin/reportsRoutes');
 const adminSeoRoutes = require('./routes/admin/seoRoutes');
+const adminProductsRoutes = require('./routes/admin/productsRoutes');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -42,6 +43,7 @@ app.use('/api/admin/emails', adminEmailsRoutes);
 app.use('/api/admin/projects', adminProjectsRoutes);
 app.use('/api/admin/reports', adminReportsRoutes);
 app.use('/api/admin/seo', adminSeoRoutes);
+app.use('/api/admin/products', adminProductsRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 
