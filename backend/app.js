@@ -10,6 +10,11 @@ const adminCareerRoutes = require('./routes/admin/careerRoutes');
 const adminCatalogsRoutes = require('./routes/admin/catalogsRoutes');
 const adminCourseRoutes = require('./routes/admin/courseRoutes');
 const adminPortfolioRoutes = require('./routes/admin/portfolioRoutes');
+const adminBlogsRoutes = require('./routes/admin/blogsRoutes');
+const adminEmailsRoutes = require('./routes/admin/emailsRoutes');
+const adminProjectsRoutes = require('./routes/admin/projectsRoutes');
+const adminReportsRoutes = require('./routes/admin/reportsRoutes');
+const adminSeoRoutes = require('./routes/admin/seoRoutes');
 const cors = require('cors');
 require('dotenv').config();
 
@@ -32,6 +37,11 @@ app.use('/api/admin/career', adminCareerRoutes);
 app.use('/api/admin/catalogs', adminCatalogsRoutes);
 app.use('/api/admin/course', adminCourseRoutes);
 app.use('/api/admin/portfolio', adminPortfolioRoutes);
+app.use('/api/admin/blogs', adminBlogsRoutes);
+app.use('/api/admin/emails', adminEmailsRoutes);
+app.use('/api/admin/projects', adminProjectsRoutes);
+app.use('/api/admin/reports', adminReportsRoutes);
+app.use('/api/admin/seo', adminSeoRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 
