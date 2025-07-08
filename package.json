@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "concurrently": "^9.1.2"
+  },
+  "dependencies": {
+    "aos": "^2.3.4"
   }
 }

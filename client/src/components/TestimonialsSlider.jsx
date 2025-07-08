@@ -1,81 +1,46 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import 'swiper/css';
+import 'swiper/css/pagination';
+import { FaStar } from 'react-icons/fa';
 
-const defaultTestimonials = [
-  {
-    name: 'Alice Johnson',
-    company: 'TechNova',
-    feedback: 'Netcurion helped us scale our cloud infrastructure seamlessly. Highly recommended!',
-    image: 'https://randomuser.me/api/portraits/women/44.jpg',
-  },
-  {
-    name: 'Bob Smith',
-    company: 'InnoSoft',
-    feedback: 'Their AI solutions automated our workflow and saved us countless hours.',
-    image: 'https://randomuser.me/api/portraits/men/32.jpg',
-  },
-  {
-    name: 'Priya Patel',
-    company: 'Cloudify',
-    feedback: 'The cybersecurity team at Netcurion is top-notch. We feel much safer now.',
-    image: 'https://randomuser.me/api/portraits/women/68.jpg',
-  },
-  {
-    name: 'David Lee',
-    company: 'AppWorks',
-    feedback: 'Their DevOps expertise accelerated our product launches.',
-    image: 'https://randomuser.me/api/portraits/men/65.jpg',
-  },
-  {
-    name: 'Sara Kim',
-    company: 'DataMinds',
-    feedback: 'Amazing analytics tools and great support team!',
-    image: 'https://randomuser.me/api/portraits/women/51.jpg',
-  },
-  {
-    name: 'Carlos Gomez',
-    company: 'SecureIT',
-    feedback: 'Netcurion’s security suite is a game changer for us.',
-    image: 'https://randomuser.me/api/portraits/men/41.jpg',
-  },
-  {
-    name: 'Emily Chen',
-    company: 'Webify',
-    feedback: 'Beautiful web design and smooth project management.',
-    image: 'https://randomuser.me/api/portraits/women/22.jpg',
-  },
-  {
-    name: 'Ravi Kumar',
-    company: 'StartX',
-    feedback: 'Their consulting team guided us through digital transformation.',
-    image: 'https://randomuser.me/api/portraits/men/23.jpg',
-  },
+const testimonials = [
+  { name: 'Rahul Mehra', role: 'CTO, ShopEase', quote: 'Netcurion transformed our cloud infrastructure. Their team is responsive, skilled, and truly cares about our success.', avatar: 'https://randomuser.me/api/portraits/men/45.jpg', rating: 5 },
+  { name: 'Priya Singh', role: 'CEO, MediCore', quote: 'Their AI solutions gave us a competitive edge. We saw results in weeks, not months!', avatar: 'https://randomuser.me/api/portraits/women/65.jpg', rating: 5 },
+  { name: 'Carlos Gomez', role: 'Security Lead', quote: 'Security and support are top-notch. We trust Netcurion with our most critical systems.', avatar: 'https://randomuser.me/api/portraits/men/77.jpg', rating: 5 },
 ];
 
-export default function TestimonialsSlider({ testimonials }) {
-  const items = testimonials || defaultTestimonials;
+export default function TestimonialsSlider() {
   return (
-    <Swiper
-      modules={[Autoplay]}
-      slidesPerView={1}
-      spaceBetween={24}
-      breakpoints={{ 640: { slidesPerView: 2 }, 1024: { slidesPerView: 3 } }}
-      className="pb-8 w-full"
-      autoplay={{ delay: 3000, disableOnInteraction: false }}
-      loop={true}
-    >
-      {items.map((t, idx) => (
-        <SwiperSlide key={idx}>
-          <div className="transition-all duration-200 bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-900 dark:to-gray-900 rounded-2xl shadow-lg p-7 flex flex-col items-center text-center h-full hover:scale-105 hover:shadow-2xl cursor-pointer border border-indigo-100 dark:border-indigo-800">
-            <img src={t.image} alt={t.name} className="h-16 w-16 rounded-full shadow mb-4 object-cover" />
-            <p className="text-gray-700 dark:text-gray-200 mb-2 text-lg italic font-medium">"{t.feedback}"</p>
-            <span className="font-semibold text-indigo-800 dark:text-indigo-200">{t.name}</span>
-            <span className="text-gray-500 ml-2">({t.company})</span>
-          </div>
-        </SwiperSlide>
-      ))}
-    </Swiper>
+    <div className="w-full">
+      <Swiper
+        modules={[Autoplay, Pagination]}
+        autoplay={{ delay: 4000, disableOnInteraction: false }}
+        pagination={{ clickable: true }}
+        loop
+        spaceBetween={24}
+        slidesPerView={1}
+        breakpoints={{
+          640: { slidesPerView: 1 },
+          1024: { slidesPerView: 2 },
+        }}
+        className="w-full"
+      >
+        {testimonials.map((t, idx) => (
+          <SwiperSlide key={idx}>
+            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border-t-4 border-green-500 h-full">
+              <img src={t.avatar} alt={t.name} className="w-16 h-16 rounded-full border-2 border-green-500 shadow-lg mb-4" />
+              <p className="text-gray-700 dark:text-gray-200 italic mb-2">“{t.quote}”</p>
+              <span className="font-semibold text-gray-900 dark:text-white">{t.name}</span>
+              <span className="text-sm text-gray-500">{t.role}</span>
+              <div className="flex gap-1 mt-2">
+                {[...Array(t.rating)].map((_, i) => <FaStar key={i} className="text-yellow-400" />)}
+              </div>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 } 

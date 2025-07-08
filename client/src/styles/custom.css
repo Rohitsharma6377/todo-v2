@@ -1,0 +1,44 @@
+/* custom.css - Add your custom styles here */
+
+/* Example: Glassmorphism card */
+.glass-card {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Example: Custom gradient text */
+.gradient-text {
+  background: linear-gradient(90deg, #6366f1, #0ea5e9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Add more custom styles below as needed */
+
+/* Animated moving gradient background */
+.animated-gradient {
+  background: linear-gradient(270deg, #6366f1, #0ea5e9, #a21caf, #f59e42, #6366f1);
+  background-size: 1200% 1200%;
+  animation: gradientMove 8s ease-in-out infinite;
+}
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Gradient hover effect for cards/buttons */
+.gradient-hover {
+  transition: background 0.5s, box-shadow 0.5s;
+}
+.gradient-hover:hover {
+  background: linear-gradient(90deg, #6366f1, #0ea5e9, #a21caf);
+  box-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.25);
+  color: #fff;
+} 
