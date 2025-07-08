@@ -23,6 +23,7 @@ const profileRoutes = require('./routes/profileRoutes');
 const cors = require('cors');
 const passport = require('passport');
 const authGoogleRoutes = require('./routes/authGoogleRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 require('dotenv').config();
 
 const app = express();
@@ -37,7 +38,11 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error(err));
 
+// Public routes
 app.use('/api/auth', authRoutes);
+app.use('/api/auth', authGoogleRoutes);
+
+// Protected routes with role-based authentication
 app.use('/api/leads', leadRoutes);
 app.use('/api/admin/accounts', adminAccountRoutes);
 app.use('/api/admin/leads', adminLeadsRoutes);
@@ -56,7 +61,9 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/wishlist', wishlistRoutes);
 app.use('/api/profile', profileRoutes);
-app.use('/api/auth', authGoogleRoutes);
+
+// Upload routes
+app.use('/api/upload', uploadRoutes);
 
 app.get('/', (req, res) => res.send('API Running'));
 

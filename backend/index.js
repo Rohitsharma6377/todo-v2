@@ -1,8 +1,7 @@
 const express = require('express');
 const connectDB = require('./utils/db');
 const cors = require('cors');
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
+const session = require('./config/session');
 const passport = require('passport');
 const helmet = require('helmet');
 const morgan = require('morgan');
@@ -42,28 +41,18 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 // Session configuration
-app.use(session({
-  secret: process.env.SESSION_SECRET || 'your-session-secret',
-  resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({
-    mongoUrl: process.env.MONGODB_URI,
-    ttl: 24 * 60 * 60 // 1 day
-  }),
-  cookie: {
-    secure: process.env.NODE_ENV === 'production',
-    httpOnly: true,
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
-    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
-  }
-}));
+app.use(session);
 
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 require('./config/passport');
 
-app.use(error);
+// Error handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).json({ message: 'Something went wrong!' });
+});
 
 // Start server
 const PORT = process.env.PORT || 5000;
