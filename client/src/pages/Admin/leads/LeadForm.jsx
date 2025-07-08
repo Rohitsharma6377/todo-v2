@@ -24,15 +24,25 @@ const LeadForm = ({ editData, onSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required />
-      <input name="email" value={form.email} onChange={handleChange} placeholder="Email" required />
-      <select name="status" value={form.status} onChange={handleChange}>
-        <option value="new">New</option>
-        <option value="contacted">Contacted</option>
-        <option value="converted">Converted</option>
-      </select>
-      <button type="submit">{editData ? 'Update' : 'Add'} Lead</button>
+    <form onSubmit={handleSubmit} className="bg-white p-6 rounded-xl shadow-lg space-y-4 w-full max-w-md mx-auto">
+      <h3 className="text-xl font-bold mb-2 text-center">{editData ? 'Edit Lead' : 'Add Lead'}</h3>
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Name</label>
+        <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Email</label>
+        <input name="email" value={form.email} onChange={handleChange} placeholder="Email" required className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400" />
+      </div>
+      <div>
+        <label className="block text-gray-700 font-medium mb-1">Status</label>
+        <select name="status" value={form.status} onChange={handleChange} className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="new">New</option>
+          <option value="contacted">Contacted</option>
+          <option value="converted">Converted</option>
+        </select>
+      </div>
+      <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">{editData ? 'Update' : 'Add'} Lead</button>
     </form>
   );
 };
