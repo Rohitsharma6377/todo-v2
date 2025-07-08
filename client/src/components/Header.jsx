@@ -5,20 +5,20 @@ import { Bars3Icon, XMarkIcon, ChevronDownIcon, MoonIcon, SunIcon, UserCircleIco
 import { logout } from '../features/auth/authSlice';
 
 const navLinks = [
-  { name: 'Home', to: '/' },
+  // { name: 'Home', to: '/' },
   { name: 'About', to: '/about' },
   { name: 'Services', to: '/services', dropdown: [
     { name: 'Consulting', to: '/services/consulting' },
     { name: 'Development', to: '/services/development' },
     { name: 'Support', to: '/services/support' },
   ]},
-  { name: 'Clients', to: '/clients' },
-  { name: 'Blogs', to: '/blogs' },
+  // { name: 'Clients', to: '/clients' },
+  // { name: 'Blogs', to: '/blogs' },
   { name: 'Catalogs', to: '/catalogs' },
   { name: 'Brochures', to: '/brochures' },
-  { name: 'Courses', to: '/courses' },
-  { name: 'Career', to: '/career' },
-  { name: 'Contact Us', to: '/contact' },
+  // { name: 'Courses', to: '/courses' },
+  // { name: 'Career', to: '/career' },
+  // { name: 'Contact Us', to: '/contact' },
 ];
 
 const Header = () => {
@@ -61,13 +61,13 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed w-full z-50 bg-white/60 dark:bg-gray-900/70 backdrop-blur-md shadow-lg rounded-b-xl md:rounded-xl mx-auto mt-2 max-w-7xl left-0 right-0">
+    <header className="fixed w-full z-50 bg-white/60 dark:bg-gray-900/70 backdrop-blur-md shadow-lg rounded-b-xl md:rounded-xl mx-auto mt-2 max-w-5xl left-0 right-0">
       <nav className="px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
         {/* Logo & Brand */}
         <div className="flex items-center">
           <Link to="/" className="flex items-center gap-2">
-            <img src="/logo192.png" alt="Netcurion Logo" className="h-8 w-8 rounded-full shadow" />
-            <span className="font-bold text-xl text-indigo-700 dark:text-indigo-300 tracking-wide">Netcurion Technology</span>
+            <img src="/logo.jpeg" alt="Netcurion Logo" className="h-8 w-8 rounded-full shadow" />
+            {/* <span className="font-bold text-xl text-indigo-700 dark:text-indigo-300 tracking-wide">Netcurion Technology</span> */}
           </Link>
         </div>
         {/* Desktop Nav */}

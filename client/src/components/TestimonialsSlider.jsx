@@ -11,7 +11,7 @@ const testimonials = [
   { name: 'Carlos Gomez', role: 'Security Lead', quote: 'Security and support are top-notch. We trust Netcurion with our most critical systems.', avatar: 'https://randomuser.me/api/portraits/men/77.jpg', rating: 5 },
 ];
 
-export default function TestimonialsSlider() {
+export default function TestimonialsSlider({ onePerSlide = false, simpleCard = false }) {
   return (
     <div className="w-full">
       <Swiper
@@ -20,8 +20,8 @@ export default function TestimonialsSlider() {
         pagination={{ clickable: true }}
         loop
         spaceBetween={24}
-        slidesPerView={1}
-        breakpoints={{
+        slidesPerView={onePerSlide ? 1 : 1}
+        breakpoints={onePerSlide ? {} : {
           640: { slidesPerView: 1 },
           1024: { slidesPerView: 2 },
         }}
@@ -29,11 +29,15 @@ export default function TestimonialsSlider() {
       >
         {testimonials.map((t, idx) => (
           <SwiperSlide key={idx}>
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border-t-4 border-green-500 h-full">
-              <img src={t.avatar} alt={t.name} className="w-16 h-16 rounded-full border-2 border-green-500 shadow-lg mb-4" />
-              <p className="text-gray-700 dark:text-gray-200 italic mb-2">“{t.quote}”</p>
-              <span className="font-semibold text-gray-900 dark:text-white">{t.name}</span>
-              <span className="text-sm text-gray-500">{t.role}</span>
+            <div className={
+              simpleCard
+                ? "bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-10 flex flex-col items-center text-center h-full"
+                : "bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex flex-col items-center text-center border-t-4 border-green-500 h-full"
+            }>
+              <img src={t.avatar} alt={t.name} className="w-16 h-16 rounded-full border-2 border-green-500 shadow-lg mb-6" />
+              <p className="text-gray-700 dark:text-gray-200 italic mb-4 text-lg">“{t.quote}”</p>
+              <span className="font-semibold text-gray-900 dark:text-white text-base mb-1">{t.name}</span>
+              <span className="text-sm text-gray-500 mb-2">{t.role}</span>
               <div className="flex gap-1 mt-2">
                 {[...Array(t.rating)].map((_, i) => <FaStar key={i} className="text-yellow-400" />)}
               </div>

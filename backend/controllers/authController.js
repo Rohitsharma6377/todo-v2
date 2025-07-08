@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const register = async (req, res) => {
   try {
     const { username, email, password, role = 'user' } = req.body;
+    console.log(`[REGISTER ATTEMPT] username: ${username}, email: ${email}, role: ${role}`);
 
     // Check if user already exists
     const existingUser = await User.findOne({ 
@@ -13,6 +14,7 @@ const register = async (req, res) => {
     });
 
     if (existingUser) {
+      console.log(`[REGISTER FAIL] User exists: ${email}`);
       return res.status(400).json({
         success: false,
         message: 'User with this email or username already exists'
@@ -31,6 +33,7 @@ const register = async (req, res) => {
     });
 
     await user.save();
+    console.log(`[REGISTER SUCCESS] id: ${user._id}, username: ${user.username}, email: ${user.email}, role: ${user.role}`);
 
     // Create JWT token
     const token = jwt.sign(
@@ -65,11 +68,13 @@ const register = async (req, res) => {
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log(`[LOGIN ATTEMPT] email: ${email}`);
 
     // Find user by email
     const user = await User.findOne({ email });
 
     if (!user) {
+      console.log(`[LOGIN FAIL] No user: ${email}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -80,6 +85,7 @@ const login = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
+      console.log(`[LOGIN FAIL] Wrong password: ${email}`);
       return res.status(401).json({
         success: false,
         message: 'Invalid email or password'
@@ -96,12 +102,13 @@ const login = async (req, res) => {
     // Set session
     req.login(user, (err) => {
       if (err) {
+        console.log(`[LOGIN FAIL] Session error: ${email}`);
         return res.status(500).json({
           success: false,
           message: 'Session error'
         });
       }
-
+      console.log(`[LOGIN SUCCESS] id: ${user._id}, username: ${user.username}, email: ${user.email}, role: ${user.role}`);
       res.json({
         success: true,
         message: 'Login successful',

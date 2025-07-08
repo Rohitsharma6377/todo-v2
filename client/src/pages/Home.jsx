@@ -7,7 +7,7 @@ import TestimonialsSlider from '../components/TestimonialsSlider';
 import ClientsSlider from '../components/ClientsSlider';
 import BannerSlider from '../components/BannerSlider';
 import FAQ from '../components/FAQ';
-import { FaCheckCircle, FaRocket, FaShieldAlt, FaUsers, FaPhoneAlt, FaAward, FaStar, FaChartLine } from 'react-icons/fa';
+import { FaCheckCircle, FaRocket, FaShieldAlt, FaUsers, FaPhoneAlt, FaAward, FaStar, FaChartLine, FaQuestionCircle } from 'react-icons/fa';
 import { useEffect } from 'react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -200,11 +200,11 @@ const Home = () => {
           </div>
         ))}
       </section>
-      {/* Get a Quote/Contact Section */}
-      <section id="get-quote" className="max-w-7xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-12">
-        <div className="flex-1 flex flex-col gap-6 items-center">
-          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Contact" className="rounded-xl shadow-lg w-full max-w-xs object-cover" />
-          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" alt="Team" className="rounded-xl shadow-lg w-full max-w-xs object-cover" />
+      {/* 1. Get a Free Quote Section (smaller images, balanced layout) */}
+      <section id="get-quote" className="max-w-4xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-8">
+        <div className="flex-1 flex flex-col gap-4 items-center">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=300&q=80" alt="Contact" className="rounded-xl shadow-lg w-40 h-40 object-cover" />
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=300&q=80" alt="Team" className="rounded-xl shadow-lg w-40 h-40 object-cover" />
         </div>
         <form className="flex-1 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-8 flex flex-col gap-4 w-full max-w-md mx-auto" onSubmit={e => { e.preventDefault(); alert('Thank you! We will contact you soon.'); }}>
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Get a Free Quote</h3>
@@ -247,36 +247,39 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {/* About/Stats Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16" data-aos="fade-up">
-        <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">Empowering Your Success with Digital Expertise</h2>
-        <p className="text-gray-500 dark:text-gray-300 mb-8 text-center max-w-2xl mx-auto">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod tristique hendrerit.</p>
-        <div className="grid md:grid-cols-2 gap-8 items-center">
-          <div className="flex flex-col gap-4">
-            {aboutProgress.map((prog, idx) => (
-              <div key={idx}>
-                <div className="flex justify-between mb-1">
-                  <span className="font-semibold text-gray-700 dark:text-gray-200">{prog.label}</span>
-                  <span className="font-semibold text-green-500">{prog.percent}%</span>
+      {/* 1. Empowering Your Success with Digital Expertise (real content, modern layout) */}
+      <section className="max-w-7xl mx-auto px-4 py-16 relative overflow-hidden" data-aos="fade-up">
+        <div className="absolute inset-0 bg-gradient-to-br from-green-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 opacity-80 pointer-events-none" />
+        <div className="relative z-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4 text-center">Empowering Your Success with Digital Expertise</h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-8 text-center max-w-2xl mx-auto">At Netcurion, we combine deep technical know-how with a passion for innovation. Our team delivers tailored solutions that help you grow, adapt, and lead in a digital world. From cloud to AI, we empower your business to reach new heights—securely and efficiently.</p>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div className="flex flex-col gap-4">
+              {aboutProgress.map((prog, idx) => (
+                <div key={idx}>
+                  <div className="flex justify-between mb-1">
+                    <span className="font-semibold text-gray-700 dark:text-gray-200 flex items-center gap-2"><FaCheckCircle className="text-green-500" />{prog.label}</span>
+                    <span className="font-semibold text-green-500">{prog.percent}%</span>
+                  </div>
+                  <div className="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700">
+                    <div className="bg-gradient-to-r from-green-400 to-blue-400 h-3 rounded-full" style={{ width: `${prog.percent}%` }}></div>
+                  </div>
                 </div>
-                <div className="w-full bg-gray-200 rounded-full h-3 dark:bg-gray-700">
-                  <div className="bg-green-500 h-3 rounded-full" style={{ width: `${prog.percent}%` }}></div>
-                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-4">
+              <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Team" className="rounded-2xl shadow-xl w-full object-cover" />
+              <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Office" className="rounded-2xl shadow-xl w-full object-cover" />
+            </div>
+          </div>
+          <div className="flex flex-wrap justify-center gap-8 mt-10">
+            {aboutStats.map((stat, idx) => (
+              <div key={idx} className="flex flex-col items-center bg-white dark:bg-gray-800 rounded-xl shadow p-6 min-w-[120px]">
+                <span className="text-3xl font-bold text-green-500">{stat.label}</span>
+                <span className="text-gray-700 dark:text-gray-200 font-semibold">{stat.value}</span>
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-4">
-            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Team" className="rounded-2xl shadow-xl w-full object-cover" />
-            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Office" className="rounded-2xl shadow-xl w-full object-cover" />
-          </div>
-        </div>
-        <div className="flex flex-wrap justify-center gap-8 mt-10">
-          {aboutStats.map((stat, idx) => (
-            <div key={idx} className="flex flex-col items-center">
-              <span className="text-3xl font-bold text-green-500">{stat.label}</span>
-              <span className="text-gray-700 dark:text-gray-200 font-semibold">{stat.value}</span>
-            </div>
-          ))}
         </div>
       </section>
       {/* Integrations Section */}
@@ -296,21 +299,21 @@ const Home = () => {
       </section>
       {/* Committed to Your Success Section */}
       <section className="max-w-7xl mx-auto px-4 py-16 flex flex-col md:flex-row items-center gap-12" data-aos="fade-up">
-        <div className="flex-1 flex justify-center items-center relative min-w-[220px] min-h-[220px]">
-          <div className="absolute -top-6 -left-6 w-48 h-48 bg-orange-100 rounded-3xl z-0"></div>
-          <div className="absolute top-8 left-8 w-40 h-40 bg-yellow-200 rounded-2xl z-0"></div>
-          <img src={successImage} alt="Success" className="relative z-10 w-48 h-48 rounded-full object-cover border-4 border-white shadow-xl" />
-        </div>
-        <div className="flex-1">
-          <span className="uppercase text-xs font-bold text-orange-500 tracking-wider mb-2 block">Our Commitment</span>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">Committed to Your Financial Success and Security</h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">We help you achieve financial peace of mind through personalized strategies and expert advice. Our team is committed to understanding your unique needs.</p>
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6">
+        <div className="flex-1 flex flex-col gap-4 items-center md:items-start">
+          <img src={successImage} alt="Success" className="w-64 h-64 rounded-2xl object-cover shadow-xl mb-4" />
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2">Empowering Your Success with Digital Expertise</h2>
+          <p className="text-gray-700 dark:text-gray-300 mb-4">At Netcurion, we deliver tailored solutions that help you grow, adapt, and lead in a digital world. From cloud to AI, we empower your business to reach new heights—securely and efficiently.</p>
+          <ul className="grid grid-cols-1 gap-2 mb-6">
             {successBullets.map((b, idx) => (
-              <li key={idx} className="flex items-center gap-2 text-gray-700 dark:text-gray-200"><span className="w-2 h-2 bg-orange-400 rounded-full"></span>{b}</li>
+              <li key={idx} className="flex items-center gap-2 text-gray-700 dark:text-gray-200"><span className="w-2 h-2 bg-green-400 rounded-full"></span>{b}</li>
             ))}
           </ul>
-          <a href="#get-quote" className="inline-block px-6 py-3 bg-orange-400 text-white rounded-lg font-semibold shadow hover:bg-orange-500 transition">Learn More</a>
+        </div>
+        <div className="flex-1 flex flex-col gap-4 w-full">
+          <div className="flex gap-4 w-full">
+            <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" alt="Team" className="rounded-xl shadow w-1/2 object-cover" />
+            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80" alt="Office" className="rounded-xl shadow w-1/2 object-cover" />
+          </div>
         </div>
       </section>
       {/* Orange/Yellow Component Slider */}
@@ -338,15 +341,27 @@ const Home = () => {
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">Latest Insights from Our Blog</h2>
         <BlogSlider />
       </section>
-      {/* Testimonials Slider Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16" data-aos="fade-up">
+      {/* 2. Testimonials Section (one card per slide, centered, avatar above, more whitespace) */}
+      <section className="max-w-4xl mx-auto px-4 py-16" data-aos="fade-up">
         <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-8 text-center">What Our Clients Say</h2>
-        <TestimonialsSlider />
+        <div className="w-full">
+          <TestimonialsSlider onePerSlide simpleCard />
+        </div>
       </section>
-      {/* FAQ Section */}
-      <section className="max-w-7xl mx-auto px-4 py-16" id="faq" data-aos="fade-up">
+      {/* 3. FAQ Section (simple, clean accordion) */}
+      <section className="max-w-3xl mx-auto px-4 py-16" id="faq" data-aos="fade-up">
         <h2 className="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-8 text-center">Frequently Asked Questions</h2>
-        <FAQ faqs={faqs} />
+        <div className="space-y-4">
+          {faqs.map((faq, idx) => (
+            <details key={idx} className="bg-white dark:bg-gray-800 rounded-xl shadow p-4 group">
+              <summary className="font-semibold text-gray-900 dark:text-white cursor-pointer flex items-center justify-between">
+                {faq.q}
+                <span className="ml-2 text-green-500 group-open:rotate-180 transition-transform">▼</span>
+              </summary>
+              <div className="mt-2 text-gray-600 dark:text-gray-300">{faq.a}</div>
+            </details>
+          ))}
+        </div>
       </section>
     </div>
   );

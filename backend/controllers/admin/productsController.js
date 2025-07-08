@@ -1,12 +1,17 @@
 const Product = require('../../models/admin/products');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+let stripe = null;
+if (process.env.STRIPE_SECRET_KEY) {
+  stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+} else {
+  console.warn('[STRIPE] STRIPE_SECRET_KEY not set. Stripe integration is disabled.');
+}
 
 exports.createProduct = async (req, res) => {
   try {
     const { name, description, sku, price, subscription } = req.body;
     const image = req.file ? req.file.filename : null;
     let stripePriceId = null;
-    if (subscription && subscription.enabled) {
+    if (stripe && subscription && subscription.enabled) {
       // Create Stripe product and price
       const stripeProduct = await stripe.products.create({ name });
       const stripePrice = await stripe.prices.create({
@@ -66,6 +71,9 @@ exports.deleteProduct = async (req, res) => {
 // Stripe checkout session for product purchase/subscription
 exports.createCheckoutSession = async (req, res) => {
   try {
+    if (!stripe) {
+      return res.status(500).json({ error: 'Stripe is not configured on the server.' });
+    }
     const { priceId } = req.body;
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],

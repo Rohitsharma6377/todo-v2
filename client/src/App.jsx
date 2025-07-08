@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -34,38 +34,48 @@ function PrivateRoute({ children, roles }) {
   return children;
 }
 
+function AppContent() {
+  const location = useLocation();
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  return (
+    <>
+      {!isAdminRoute && <Header />}
+      <main className={!isAdminRoute ? "pt-16 min-h-screen bg-gray-50" : "min-h-screen bg-gray-50"}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/career" element={<Career />} />
+          <Route path="/policy" element={<Policy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/services/*" element={<Services />} />
+          <Route path="/services/:id" element={<SingleService />} />
+          <Route path="/clients" element={<Clients />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/:id" element={<BlogSingle />} />
+          <Route path="/catalogs" element={<Catalogs />} />
+          <Route path="/catalogs/:id" element={<SingleCatalog />} />
+          <Route path="/brochures" element={<Brochures />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+          <Route path="/client/*" element={<ClientDashboard />} />
+          <Route path="/user/*" element={<UserDashboard />} />
+          <Route path="/crm/leads" element={<Leads />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </main>
+      {!isAdminRoute && <Footer />}
+    </>
+  );
+}
+
 function App() {
   return (
     <HelmetProvider>
       <Router>
-        <Header />
-        <main className="pt-16 min-h-screen bg-gray-50">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/career" element={<Career />} />
-            <Route path="/policy" element={<Policy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/services/*" element={<Services />} />
-            <Route path="/services/:id" element={<SingleService />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/blogs" element={<Blogs />} />
-            <Route path="/blogs/:id" element={<BlogSingle />} />
-            <Route path="/catalogs" element={<Catalogs />} />
-            <Route path="/catalogs/:id" element={<SingleCatalog />} />
-            <Route path="/brochures" element={<Brochures />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/admin/*" element={<AdminDashboard />} />
-            <Route path="/client/*" element={<ClientDashboard />} />
-            <Route path="/user/*" element={<UserDashboard />} />
-            <Route path="/crm/leads" element={<Leads />} />
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </main>
-        <Footer />
+        <AppContent />
       </Router>
     </HelmetProvider>
   );

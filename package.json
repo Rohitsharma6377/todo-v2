@@ -3,6 +3,8 @@
     "concurrently": "^9.1.2"
   },
   "dependencies": {
-    "aos": "^2.3.4"
+    "aos": "^2.3.4",
+    "passport-google-oauth20": "^2.0.0",
+    "react-hot-toast": "^2.5.2"
   }
 }
