@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchLeads, deleteLead } from '../../../features/admin/leads/leadsSlice';
+import { fetchLeads, deleteLead } from '../../../features/admin/leads/crmSlice';
 import LeadForm from './LeadForm';
 
 const LeadsDashboard = () => {
   const dispatch = useDispatch();
-  const leads = useSelector((state) => state.leads.leads);
+  const leads = useSelector((state) => state.crm.leads || []);
   const [editData, setEditData] = useState(null);
   const [showForm, setShowForm] = useState(false);
 

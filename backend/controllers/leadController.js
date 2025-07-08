@@ -19,3 +19,30 @@ exports.getLeads = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+
+exports.updateLead = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+    const lead = await Lead.findOneAndUpdate(
+      { _id: id, createdBy: req.session.user.id },
+      update,
+      { new: true }
+    );
+    if (!lead) return res.status(404).json({ error: 'Lead not found' });
+    res.json(lead);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+exports.deleteLead = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const lead = await Lead.findOneAndDelete({ _id: id, createdBy: req.session.user.id });
+    if (!lead) return res.status(404).json({ error: 'Lead not found' });
+    res.json({ success: true });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
